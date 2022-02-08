@@ -7,7 +7,7 @@
     <title>Data Pasien</title>
 
     @stack('before-style')
-    @include('include.style')
+    @include('includes.style')
     @stack('after-style')
 </head>
 
@@ -25,7 +25,7 @@
 
 
 @stack('before-script')
-@include('include.script')
+@include('includes.script')
 @stack('after-script')
 
 </body>

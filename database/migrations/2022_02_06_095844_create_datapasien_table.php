@@ -19,7 +19,7 @@ class CreateDatapasienTable extends Migration
             $table->integer('umur');
             $table->longText('alamat');
             $table->string('status');
-            $table->integer('tgllahir');
+            $table->date('tgllahir');
             $table->string('jeniskelamin');
             $table->longText('keluhan');
             $table->softDeletes();

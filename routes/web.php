@@ -18,5 +18,9 @@ use App\Http\Controllers\PasienController;
 //   return view('welcome');
 // });
 
-Route::get('/'(PasienController::class,'index'));
-
+Route::get('/',[PasienController::class,'index']);
+Route::get('/create',[PasienController::class,'create']);
+Route::post('/store', [PasienController::class,'store']);
+Route::get('/show/{id}', [PasienController::class,'show']);
+Route::post('/update/{id}', [PasienController::class,'update']);
+Route::get('/destroy/{id}', [PasienController::class,'destroy']);

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\M_Pasien;
 class PasienController extends Controller
 {
     /**
@@ -13,7 +13,10 @@ class PasienController extends Controller
      */
     public function index()
     {
-        return view('index');
+        $data = M_Pasien::all();
+        return view('index')->with([
+            'data' => $data
+        ]);
     }
 
     /**
@@ -23,7 +26,7 @@ class PasienController extends Controller
      */
     public function create()
     {
-        //
+        return view('layouts.create');
     }
 
     /**
@@ -34,7 +37,26 @@ class PasienController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'nama' => ['required'],
+            'umur' => ['required'],
+            'alamat' => ['required'],
+            'status' => ['nullable'],
+            'tgllahir' => ['nullable'],
+            'jeniskelamin' => ['nullable'],
+            'keluhan' => ['nullable']
+        ]);
+
+        $data = new M_Pasien;
+        $data->nama = $request->nama;
+        $data->umur = $request->umur;
+        $data->alamat = $request->alamat;
+        $data->status= $request->status;
+        $data->tgllahir= $request->tgllahir;
+        $data->jeniskelamin = $request->jeniskelamin;
+        $data->keluhan = $request->keluhan;
+        $data->save();
+        return redirect('/');
     }
 
     /**
@@ -45,7 +67,10 @@ class PasienController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = M_Pasien::findOrFail($id);
+        return view('layouts.show')->with([
+            'data' => $data
+        ]);
     }
 
     /**
@@ -68,7 +93,10 @@ class PasienController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $item = M_Pasien::findOrFail($id);
+        $data = $request->except(['_token']);
+        $item->update($data);
+        return redirect('/');
     }
 
     /**
@@ -79,6 +107,9 @@ class PasienController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $item = M_Pasien::findOrFail($id);
+        $item->delete();
+        return redirect('/');
+
     }
 }
